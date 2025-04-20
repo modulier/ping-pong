@@ -54,9 +54,14 @@ finish = False
 clock = time.Clock()
 FPS = 60
 
-racket1 = Player("racket.png",0,200,4,60,150)
-racket2 = Player("racket.png",550,200,4,60,150)
+racket1 = Player("racket3.png",0,200,4,60,150)
+racket2 = Player("racket3.png",550,200,4,40,150)
 ball = GameSprite("ball.png",200,200,4,100,100)
+
+font.init()
+font = font.Font(None,35)
+lose1 = font.render('PLAYER 1 LOSE',True,(180,0,0))
+lose2 = font.render('PLAYER 2 LOSE',True,(180,0,0))
 
 speed_x = 3
 speed_y = 3
@@ -78,6 +83,17 @@ while game:
 
         if ball.rect.y > win_height - 50 or ball.rect.y < 0:
             speed_y *= -1
+
+        if ball.rect.x < 0:
+            finish = False
+            window.blit(lose1, (200,200))
+            game_over = True
+
+
+        if ball.rect.x > win_width:
+            finish = False
+            window.blit(lose2, (200,200))
+            game_over = True
 
 
         racket1.reset()
